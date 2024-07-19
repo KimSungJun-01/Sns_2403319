@@ -12,24 +12,27 @@ import com.sns.post.repository.PostRepository;
 
 @Service
 public class PostBO {
-	
+
 	@Autowired
 	private PostRepository postRepository;
 	
 	@Autowired
 	private FileManagerService fileManagerService;
-	
+
 	// input: X
 	// output: List<PostEntity>
 	public List<PostEntity> getPostEntityList() {
 		return postRepository.findByOrderByIdDesc();
 	}
-	
-	// input : userId, userLoginId, content, file
-	// output : x
-	public void addPost(int userId, String userLoginId, String content, MultipartFile file) {
+
+	// input: 파라미터들 output:PostEntity
+	public PostEntity addPost(int userId, String userLoginId, String content, MultipartFile file) {
+
+		// 업로드 후 imagePath를 받아옴
 		String imagePath = fileManagerService.uploadFile(file, userLoginId);
-		postRepository.save(PostEntity.builder()
+
+		return postRepository.save(
+				PostEntity.builder()
 				.userId(userId)
 				.content(content)
 				.imagePath(imagePath)

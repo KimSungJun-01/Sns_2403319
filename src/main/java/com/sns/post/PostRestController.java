@@ -17,24 +17,28 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/post")
 @RestController
 public class PostRestController {
-	
+
 	@Autowired
 	private PostBO postBO;
 	
 	@PostMapping("/create")
 	public Map<String, Object> create(
-			@RequestParam("content") String content,
+			@RequestParam(value = "content", required = false) String content,
 			@RequestParam("file") MultipartFile file,
 			HttpSession session) {
-		// 글쓴이 번호를 session에서 꺼낸다.
-		int userId = (int)session.getAttribute("userId");
-		String userLoginId = (String)session.getAttribute("userLoginId");
 		
-		// DB insert
+		Integer userId = (Integer) session.getAttribute("userId");
+		String userLoginId = (String) session.getAttribute("userLoginId");
+		
+		Map<String, Object> result = new HashMap<>();
+		if (userId == null) {
+			result.put("code", 403); // 비로그인 상태
+			result.put("error_message", "로그인을 해주세요.");
+			return result;
+		}
+		
 		postBO.addPost(userId, userLoginId, content, file);
 		
-		// 응답값
-		Map<String, Object> result = new HashMap<>();
 		result.put("code", 200);
 		result.put("result", "성공");
 		return result;
