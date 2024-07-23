@@ -25,17 +25,16 @@ public class TimelineBO {
 	
 	@Autowired
 	private CommentBO commentBO;
-	
-	// input : x
-	// output : List<CardView>
+
+	// input:X    output: List<CardView>
 	public List<CardView> generateCardViewList() {
 		List<CardView> cardViewList = new ArrayList<>();
 		
-		// 글 목록 가져오기 List<PostEntity>
+		// 글목록을 가져온다. List<PostEntity>
 		List<PostEntity> postList = postBO.getPostEntityList();
 		
-		// 글 목록 반복문 순회
-		// PostEntity => CardView => cardViewList에 넣기
+		// 글목록 반복문 순회
+		// PostEntity => CardView     -> cardViewList에 넣기
 		for (PostEntity post : postList) {
 			CardView card = new CardView();
 			
@@ -46,15 +45,22 @@ public class TimelineBO {
 			UserEntity user = userBO.getUserEntityById(post.getUserId());
 			card.setUser(user);
 			
-			// 댓글 n개
+			// 댓글 N개
 			List<CommentView> commentViewList = commentBO.generateCommentViewListByPostId(post.getId());
-			
-			// TODO 댓글을 카드에 넣는다.
+			// 댓글을 카드에 넣는다.
 			card.setCommentList(commentViewList);
 			
-			// !!!! 반드시 리스트에 넣는다.
+			// 좋아요 개수
+			
+			// 좋아요 여부 채우기
+			
+			//!!!!!!!!! 반드시 리스트에 넣는다.
 			cardViewList.add(card);
 		}
+		
 		return cardViewList;
 	}
 }
+
+
+

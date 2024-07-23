@@ -9,7 +9,8 @@ import com.sns.user.entity.UserEntity;
 import lombok.Data;
 import lombok.ToString;
 
-// view용 객체, 글 1개와 매핑됨
+// view 용 객체
+// 글 1개와 매핑됨
 @ToString
 @Data
 public class CardView {
@@ -19,10 +20,12 @@ public class CardView {
 	// 글쓴이 정보
 	private UserEntity user;
 	
-	// 댓글 n개
+	// 댓글 N개
 	private List<CommentView> commentList;
 	
-	// 좋아요 n개
+	// 좋아요 N개
+	private int likeCount;
 	
-	// 좋아요를 눌렀는지에 대한 여부
+	// 좋아요를 누른지 여부
+	private boolean filledLike;
 }

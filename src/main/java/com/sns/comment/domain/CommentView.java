@@ -14,5 +14,4 @@ public class CommentView {
 	
 	// 댓글쓴이
 	private UserEntity user;
-	
 }
