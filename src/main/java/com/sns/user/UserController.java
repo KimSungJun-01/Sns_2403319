@@ -41,4 +41,14 @@ public class UserController {
 		
 		return "redirect:/user/sign-in-view";
 	}
+	
+	@GetMapping("/find-id-view")
+	public String findId() {
+		return "user/findId";
+	}
+	
+	@GetMapping("/find-password-view")
+	public String findPassword() {
+		return "user/findPassword";
+	}
 }
